@@ -1,0 +1,309 @@
+\documentclass[dvipdfmx,a4j,uplatex]{jsarticle}
+
+\usepackage[top = 2.56cm, bottom = 2.56cm, left = 2.56cm, right = 2.56cm]{geometry}
+\usepackage{ascmac}
+\usepackage{longtable}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage{listings, jlisting}
+\usepackage{ascolorbox}
+\usepackage{tcolorbox}
+\usepackage{enumerate}
+\usepackage{ulem}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{leading}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxrubrica}
+%\usepackage{udline}
+
+\tcbuselibrary{xparse}
+\tcbuselibrary{skins}
+\tcbuselibrary{listings}
+\tcbuselibrary{breakable}
+
+
+%\setlength\textfloatsep{10cm}
+\newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
+\renewcommand\thefootnote{[\arabic{footnote}]}
+\renewcommand{\lstlistingname}{ソースコード}
+\renewcommand{\empty}{}
+\renewcommand{\tt}{\texttt}
+\setlength\intextsep{0pt}
+\setlength\textfloatsep{0pt}
+
+
+\definecolor{hanada}{rgb}{.91,.91,.95}
+\definecolor{enji}{rgb}{.65,.18,.24}
+\definecolor{kinaka}{rgb}{.91,.33,.01}
+\definecolor{grey}{rgb}{.95,.95,.95}
+\definecolor{grblack}{rgb}{.21,.27,.29}
+\definecolor{barblack}{rgb}{.31,.31,.31}
+\definecolor{blwhite}{rgb}{.70,.70,.70}
+\definecolor{base}{gray}{0}
+\definecolor{num}{rgb}{.59,.41,.14}
+\definecolor{lit}{rgb}{.29,.46,.92}
+\definecolor{key}{rgb}{.73,.23,.63}
+\definecolor{cls}{rgb}{.75,.52,.14}
+\definecolor{inc}{rgb}{.43,.66,.39}
+\definecolor{str}{rgb}{.99,.40,.00}
+\definecolor{com}{rgb}{.63,.64,.67}
+
+\hypersetup{
+    colorlinks=true,
+    citecolor=blue,
+    linkcolor=red,
+    urlcolor=orange!70!black
+}
+
+\lstdefinelanguage{cpp}{
+  alsoletter={\,,\<,\>,\#},
+  morekeywords=[2]{int,ll,long,unsigned,char,double,float},
+  morekeywords=[3]{break,case,class,struct,const,continue,do,while,else,enum,extends,for,rep,REP,if,private,public,explicit,static,return,super,using,namespace,\#include,\#define,\#pragma},
+  morekeywords=[4]{vector,map,unordered\_map,set,unordered\_set,stack,queue,priority\_queue,string,deque},
+  morekeywords=[5]{<string>,<iostream>,<algorithm>,<vector>,<bitset>,<complex>,<deque>,<exception>,<fstream>,<functional>,<iomanip>,<ios>,<iosfwd>,<istream>,<iterator>,<limits>,<list>,<locale>,<map>,<memory>,<new>,<numeric>,<ostream>,<queue>,<set>,<sstream>,<stack>,<stdexcept>,<streambuf>,<utility>,<typeinfo>,<valarray>,<cassert>,<cerrno>,<cctype>,<cfloat>,<ciso646>,<climits>,<clocale>,<cmath>,<csetjmp>,<csignal>,<cstdarg>,<cstddef>,<cstdio>,<cstdlib>,<cstring>,<ctime>,<cwchar>,<strstream>,<array>,<atomic>,<chrono>,<codecvt>,<tuple>,<unordered_set>,<regex>,<mutex>,<unordered_map>,<random>,<bits/stdc++.h>},
+  morekeywords=[6]{endl},  comment=[l]{//},  morecomment=[s]{/*}{*/},  morestring=[b]{"},
+  morestring=[b]{'},  sensitive=true,
+  literate=*{0}{{\textcolor{num}{0}}}{1}%
+         {1}{{\textcolor{num}{1}}}{1}%
+         {2}{{\textcolor{num}{2}}}{1}%
+         {3}{{\textcolor{num}{3}}}{1}%
+         {4}{{\textcolor{num}{4}}}{1}%
+         {5}{{\textcolor{num}{5}}}{1}%
+         {6}{{\textcolor{num}{6}}}{1}%
+         {7}{{\textcolor{num}{7}}}{1}%
+         {8}{{\textcolor{num}{8}}}{1}%
+         {9}{{\textcolor{num}{9}}}{1}%
+         {.0}{{\textcolor{num}{.0}}}{1}% Following is to ensure that only periods
+         {.1}{{\textcolor{num}{.1}}}{1}% followed by a digit are changed.
+         {.2}{{\textcolor{num}{.2}}}{1}%
+         {.3}{{\textcolor{num}{.3}}}{1}%
+         {.4}{{\textcolor{num}{.4}}}{1}%
+         {.5}{{\textcolor{num}{.5}}}{1}%
+         {.6}{{\textcolor{num}{.6}}}{1}%
+         {.7}{{\textcolor{num}{.7}}}{1}%
+         {.8}{{\textcolor{num}{.8}}}{1}%
+         {.9}{{\textcolor{num}{.9}}}{1}%
+         {\ }{{ }}{1}% handle the space
+         ,%
+    escapeinside={!!}
+}
+
+
+\lstset{
+  language={cpp},
+  basicstyle={\ttfamily\color{base}\small},
+  keywordstyle=[2]{\color{lit}\bfseries},
+  keywordstyle=[3]{\color{key}\textbf},
+  keywordstyle=[4]{\color{cls}\textbf},
+  keywordstyle=[5]{\color{inc}\textbf},
+  keywordstyle=[6]{\color{str}\textbf},
+  commentstyle={\ttfamily\color{com}\small},
+  stringstyle={\ttfamily\color{str}\small},
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=1zw,
+  numberstyle={\scriptsize\ttfamily\bfseries},
+  showstringspaces=false,
+  lineskip=-0.5zw
+}
+%\renewcommand{\thesection}{第\arabic{section}節}
+
+\newtcolorbox[auto counter]{pbox}[1]{
+  enhanced,  borderline west={3pt}{0pt}{enji},  colframe=white,  left=24pt, bottom=10pt, right = 24pt,  drop fuzzy shadow east,  sharp corners,  toptitle=8pt,  lefttitle=10pt,  fonttitle=\bfseries\Large,  coltitle=black,  colbacktitle=white,   title=Problem~\thetcbcounter~: #1,  colback=white, breakable }
+
+
+\newtcolorbox{cbox}[1]{
+  enhanced,  after skip=10pt,  before skip=0pt,  borderline west={1pt}{0pt}{kinaka},  left=3pt, bottom=3pt, right = 3pt,  colframe=white,  sharp corners,  fonttitle=\bfseries\large,  coltitle=black,  colbacktitle=white,  bottomtitle=-4pt,
+  title=#1,  colback=white }
+
+
+\newtcolorbox{inout}[1]{
+  enhanced, segmentation style={draw=black}, colframe=white,  sharp corners,  after skip=0pt,  colback=grey,  sidebyside align=top,  sidebyside=#1,  fontupper=\leading{13pt},  fontlower=\leading{13pt}}
+
+
+\newtcolorbox[auto counter]{terminal}[2]{
+  enhanced,  center,  width=10cm,  arc=0.3mm,  before skip=10pt, after skip=10pt,
+  fonttitle=\bfseries\ttfamily,  coltitle=white,  colbacktitle=barblack,  title=Input/OutPut~(\thetcbcounter):~#1,  sidebyside align=top,  sidebyside=#2,  segmentation style={draw=white},  center title,  colframe=black,  colback=grblack,  fontupper=\leading{13pt},  fontlower=\leading{13pt},  coltext=white,  underlay={\draw[blwhite, line width=0.5pt] (interior.north west) -- (interior.north east);},  fontupper=\ttfamily,  fontlower=\ttfamily, titlerule=0mm,  boxrule=0.2mm}
+
+
+\newtcolorbox{terminalblock}[1]{
+  enhanced,  center,  width=14cm, sharp corners,  before skip=10pt, after skip=10pt,
+  colbacktitle=enji,    colback=grblack,  fontupper=\leading{#1}\ttfamily,  frame hidden,  bottom=6pt,  top=6pt, coltext=white}
+
+
+\newtcblisting[auto counter]{code}[1]{
+  enhanced,  before skip=10pt,  underlay={\begin{tcbclipinterior}\draw[kinaka] ([xshift=6.4mm]frame.south west) -- ([xshift=6.4mm]frame.north west);\end{tcbclipinterior}},  underlay={\draw[enji, line width=1pt] (frame.north west) -- (frame.north east);},  underlay={\draw[enji, line width=1pt] ([xshift=-0.5mm]interior.north west) -- ([xshift=0.5mm]interior.north east);},  underlay={\draw[enji!70!white, line width=0.5pt] ([xshift=0.2mm, yshift=-6.3mm]frame.north west) -- ([xshift=0.2mm]frame.south west);},  underlay={\draw[enji!70!white, line width=0.5pt] ([xshift=-0.2mm, yshift=-6.3mm]frame.north east) -- ([xshift=-0.2mm]frame.south east);},  underlay={\draw[enji!70!white, line width=0.5pt] ([xshift=0.2mm]frame.south west) -- ([xshift=-0.2mm]frame.south east);},  center title,  colback=white,  coltitle=white,
+  colbacktitle=enji,  fonttitle=\bfseries\ttfamily,  sharp corners,  frame hidden,  listing engine=listings,  listing only,  title=Source Code (\thetcbcounter): {#1},  listing options={language=cpp},  bottom=1pt,  top=1pt, breakable}
+
+\newtcblisting[auto counter]{codeblock}{
+  enhanced,  before skip=10pt,  underlay={\begin{tcbclipinterior}\draw[kinaka] ([xshift=6.4mm]frame.south west) -- ([xshift=6.4mm]frame.north west);\end{tcbclipinterior}},  underlay={\draw[enji, line width=0.5pt] (frame.north west) -- (frame.north east);},  underlay={\draw[enji!70!white, line width=0.5pt] (frame.north west) -- (frame.south west);},  underlay={\draw[enji!70!white, line width=0.5pt] (frame.north east) -- (frame.south east);},  underlay={\draw[enji!70!white, line width=0.5pt] (frame.south west) -- (frame.south east);},  center title,  colback=white,  coltitle=white,
+  colbacktitle=enji,  fonttitle=\bfseries,  sharp corners,  frame hidden,  listing engine=listings,  listing only,  listing options={language=cpp},  bottom=-1pt,  top=-1pt, breakable}
+
+
+\title{プログラミング入門\\2021/06/04\ 解説}
+\author{高校3年 赤澤侑}
+\date{2021/06/04}
+\begin{document}
+  \maketitle
+
+  \section{第1問}
+
+    \begin{pbox}{最大値}
+      $N$個の整数が与えられる。そのうちの最大値を出力せよ。\\
+      \begin{cbox}{制約}
+        $1 \leq N \leq 1000\ \ \ $各整数の絶対値は1000以下。
+      \end{cbox}
+    \end{pbox}
+    解答例は以下のとおりです。
+
+    \begin{code}{最大値-解答例}
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n, t;
+    cin >> n;
+    int ans = -10000;
+    for (int i = 0; i < n; ++i) {
+        cin >> t;
+        if (t > ans) {
+            ans = t;
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
+    \end{code}
+
+    与えられる整数の絶対値は1000以下なので答えが-10000になることはありませんから、これは事実上答えとしては「ありえないほど小さい」数値になっています。故に最大値を考えるときの初期値として有効です。
+
+    また、次のような別解が考えられます。
+    \newpage
+
+    \begin{code}{最大値-別解1}
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n, t;
+    cin >> n;
+    int ans = -10000;
+    for (int i = 0; i < n; ++i) {
+        cin >> t;
+        ans = max(ans, t);
+    }
+    cout << ans << endl;
+    return 0;
+}
+    \end{code}
+
+    \tt{max}という関数は2つの引数をとり\footnote{
+      C++17以降では3つ以上の数の最大値を返すことができるようになりました。その場合比較したい複数個の値を\tt{max(\{a1, a2, ... , an\})}のように中括弧でくくります。
+    }、2つのうち大きい方を戻り値として返します。
+    また、小さい2つの引数をとり、小さい方の値を返す\tt{min}という関数\footnote{
+      これも\tt{max}同様、3つ以上の数の最小値を返すことができます。
+    }もあります。\\
+
+    さらにもう一つ別解を示しておきます。
+
+    \begin{code}{最大値-別解2}
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+    sort(a, a + n);
+    cout << a[n-1] << endl;
+    return 0;
+}
+    \end{code}
+
+    \tt{sort}というのは並べ替えを行う関数で、並べ替える範囲を指定\footnote{
+      生配列の場合、メモリ上の連続した場所に領域が取られるので、配列の最初のポインタ(すなわち配列変数)を第一引数に与え、要素数を加算したものを第二引数に与えることで、ポインタ演算によって範囲を指定することができます。\tt{std::vector}などを使う場合は始点と終点のイテレータを渡します。
+    }するとその範囲内のもの\footnote{
+      大小関係を定義できるものに限ります。ただし、大小関係はプログラマが定義することもできます。この場合については注5を参照してください。
+    }を昇順\footnote{
+      比較関数を第三引数に渡すことで、昇順に限らず、並べ替えの順番(例えば降順など)を指定することができます。通常では大小関係が定義されないものについてもこのようにすることでソートできます。
+    }に並べ替えてくれます。
+    並べ替えの後には、最大値は配列の一番最後にいるはずなのでそれを出力します。
+    なお、この関数は$N \geq 10^7$以上では並べ替えに時間がかかりすぎてしまうため、使うことが難しいです。
+
+
+  \newpage
+  \section{第2問}
+
+    \begin{pbox}{コラッツ予想}
+      整数$k$が与えられる。$k$が1になるまでに必要なコラッツ予想の試行回数を求めよ。\\
+      ただし、コラッツ予想とは任意の正整数$n$に対して\\
+      $\rm(\hspace{.18em}i\hspace{.18em})$\ $n$が偶数のとき2で割る\\
+      $\rm(\hspace{.08em}ii\hspace{.08em})$\ $n$が奇数のとき3倍して1足す\\
+      を繰り返すと有限回の試行の後、全ての正整数が1に至るという予想である。
+      \begin{cbox}{制約}
+        $1 \leq k \leq 100000$
+      \end{cbox}
+    \end{pbox}
+
+    解答例は以下のとおりです\footnote{
+      例によってexclamation markを半角で打てなかったので全角で打っています。半角に直して実行してください。
+    }。
+
+    \begin{code}{コラッツ予想-解答例}
+#include <iostream>
+using namespace std;
+
+int main(){
+    int k;
+    cin >> k;
+    int ans = 0;
+    for(; k ！= 1; ){
+        if (k % 2 == 0) {
+            k /= 2;
+        } else {
+            k = 3*k + 1;
+        }
+        ++ans;
+    }
+    cout << ans << endl;
+    return 0;
+}
+    \end{code}
+
+    ループの仕様についてはすでにアップした「\#1.pdf」を確認してください。(次ページに続きます)
+
+
+    \newpage
+    また、「条件を満たす間ずっと繰り返す」を明示的に行う場合は次の\tt{while}文を使うことが多いです。
+
+    \begin{code}{コラッツ予想-別解1}
+#include <iostream>
+using namespace std;
+
+int main(){
+    int k;
+    cin >> k;
+    int ans = 0;
+    while(k ！= 1){
+        if (k % 2 == 0) {
+            k /= 2;
+        } else {
+            k = 3*k + 1;
+        }
+        ++ans;
+    }
+    cout << ans << endl;
+    return 0;
+}
+    \end{code}
+
+    \tt{while()}の小括弧の中に条件式を書きます。この条件を満たす間ループします。評価のタイミングは\tt{for}文と同じように「ループの中身」を実行する前です。
+
+\end{document}

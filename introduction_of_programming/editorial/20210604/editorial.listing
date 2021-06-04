@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+    int k;
+    cin >> k;
+    int ans = 0;
+    while(k ！= 1){
+        if (k % 2 == 0) {
+            k /= 2;
+        } else {
+            k = 3*k + 1;
+        }
+        ++ans;
+    }
+    cout << ans << endl;
+    return 0;
+}
+    
